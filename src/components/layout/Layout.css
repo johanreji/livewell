@@ -1,0 +1,22 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-content {
+    margin-top: 64px;
+    /* Navbar height */
+    flex: 1;
+    padding: var(--spacing-lg);
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .layout-content {
+        padding: var(--spacing-md);
+    }
+}
