@@ -3,7 +3,25 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // This runs server-side only — the key is never sent to the browser
 const API_KEY = process.env.GEMINI_API_KEY;
 
+const ALLOWED_ORIGINS = [
+    "https://livewell-159f8.web.app",
+    "https://livewell-159f8.firebaseapp.com",
+    "http://localhost:5173",
+    "http://localhost:5174"
+];
+
+function setCors(req, res) {
+    const origin = req.headers.origin;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
 export default async function handler(req, res) {
+    setCors(req, res);
+
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
         return res.status(200).end();
